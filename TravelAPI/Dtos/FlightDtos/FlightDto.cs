@@ -1,8 +1,7 @@
-﻿namespace TravelAPI.Models;
+﻿namespace TravelAPI.Dtos.FlightDtos;
 
-public class Flight
+public class FlightDto
 {
-    public Guid Id { get; init; }
     public string CompanyName { get; set; }
     public string Departure { get; set; }
     public string Arrival { get; set; }

@@ -1,14 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations;
 using TravelAPI.Enums;
 
-namespace TravelAPI.Models;
+namespace TravelAPI.Dtos.HotelDtos;
 
-[PrimaryKey(nameof(Name))]
-public class Hotel
+public class CreateHotelDto
 {
+    [Required]
     public string Name { get; set; }
+    [Required]
     public string Location { get; set; }
+    [Required]
     public double DailyPrice { get; set; }
+    [Required]
     public int Stars { get; set; }
     public HotelType HotelType { get; set; }
 }
