@@ -20,7 +20,8 @@ public class FlightController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var flights = await _flightRepo.GetAllAsync();
-        return Ok(flights);
+        var flightDtos = flights.Select(f => f.ToFlightDto());
+        return Ok(flightDtos);
     }
 
     [HttpGet]
@@ -34,7 +35,7 @@ public class FlightController : ControllerBase
             return NotFound();
         }
         
-        return Ok(flight);
+        return Ok(flight.ToFlightDto());
     }
 
     [HttpPost]

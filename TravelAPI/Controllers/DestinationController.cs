@@ -20,7 +20,8 @@ public class DestinationController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var destinations = await _destinationRepo.GetAllAsync();
-        return Ok(destinations);
+        var destinationDtos = destinations.Select(d => d.ToDestinationDto());
+        return Ok(destinationDtos);
     }
 
     [HttpGet]
@@ -33,8 +34,8 @@ public class DestinationController : ControllerBase
         {
             return NotFound();
         }
-        
-        return Ok(destination);
+
+        return Ok(destination.ToDestinationDto());
     }
 
     [HttpPost]

@@ -22,7 +22,8 @@ public class HotelController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var hotels = await _hotelRepo.GetAllAsync();
-        return Ok(hotels);
+        var hotelDtos = hotels.Select(h => h.ToHotelDto()); 
+        return Ok(hotelDtos);
     }
 
     [HttpGet]
