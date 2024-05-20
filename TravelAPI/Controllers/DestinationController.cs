@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelAPI.Dtos.DestinationDtos;
+using TravelAPI.Helpers;
 using TravelAPI.Interfaces;
 using TravelAPI.Mappers;
 
@@ -17,9 +18,9 @@ public class DestinationController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] DestinationQueryObject queryObject)
     {
-        var destinations = await _destinationRepo.GetAllAsync();
+        var destinations = await _destinationRepo.GetAllAsync(queryObject);
         var destinationDtos = destinations.Select(d => d.ToDestinationDto());
         return Ok(destinationDtos);
     }

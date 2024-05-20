@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TravelAPI.Data;
 using TravelAPI.Dtos.DestinationDtos;
+using TravelAPI.Helpers;
 using TravelAPI.Interfaces;
 using TravelAPI.Models;
 
@@ -15,10 +16,37 @@ public class DestinationRepository : IDestinationRepository
         _context = context;
     }
     
-    public async Task<IEnumerable<Destination>> GetAllAsync()
+    public async Task<IEnumerable<Destination>> GetAllAsync(DestinationQueryObject queryObject)
     {
-        var destinations = await _context.Destinations.ToListAsync();
-        return destinations;
+        var destinations = _context.Destinations.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(queryObject.Country))
+        {
+            destinations = destinations.Where(d => d.Country.Contains(queryObject.Country));
+        }
+
+        if (!string.IsNullOrWhiteSpace(queryObject.Continent))
+        {
+            destinations = destinations.Where(d => d.Continent.Contains(queryObject.Continent));
+        }
+
+        if (!string.IsNullOrWhiteSpace(queryObject.SortBy))
+        {
+            switch (queryObject.SortBy.ToLower())
+            {
+                case "name":
+                    destinations = queryObject.IsDescending ? destinations.OrderByDescending(d => d.Name) : destinations.OrderBy(d => d.Name);
+                    break;
+                case "country":
+                    destinations = queryObject.IsDescending ? destinations.OrderByDescending(d => d.Country) : destinations.OrderBy(d => d.Country);
+                    break;
+                case "continent":
+                    destinations = queryObject.IsDescending ? destinations.OrderByDescending(d => d.Continent) : destinations.OrderBy(d => d.Continent);
+                    break;
+            }
+        }
+        
+        return await destinations.ToListAsync();
     }
 
     public async Task<Destination?> GetByNameAsync(string name)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TravelAPI.Dtos.HotelDtos;
+using TravelAPI.Helpers;
 using TravelAPI.Interfaces;
 using TravelAPI.Mappers;
 using TravelAPI.Models;
@@ -19,9 +20,9 @@ public class HotelController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll([FromQuery] HotelQueryObject queryObject)
     {
-        var hotels = await _hotelRepo.GetAllAsync();
+        var hotels = await _hotelRepo.GetAllAsync(queryObject);
         var hotelDtos = hotels.Select(h => h.ToHotelDto()); 
         return Ok(hotelDtos);
     }
