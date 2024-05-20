@@ -14,4 +14,6 @@ public class CreateHotelDto
     [Required]
     public int Stars { get; set; }
     public HotelType HotelType { get; set; }
+    [Required]
+    public string ImgLink { get; set; }
 }

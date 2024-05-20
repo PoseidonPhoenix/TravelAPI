@@ -13,7 +13,8 @@ public static class HotelMapper
             Location = hotel.Location,
             DailyPrice = hotel.DailyPrice,
             Stars = hotel.Stars,
-            HotelType = hotel.HotelType
+            HotelType = hotel.HotelType,
+            ImgLink = hotel.ImgLink
         };
     }
 
@@ -25,7 +26,8 @@ public static class HotelMapper
             Location = createHotelDto.Location,
             DailyPrice = createHotelDto.DailyPrice,
             Stars = createHotelDto.Stars,
-            HotelType = createHotelDto.HotelType
+            HotelType = createHotelDto.HotelType,
+            ImgLink = createHotelDto.ImgLink
         };
         
     }

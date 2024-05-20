@@ -11,4 +11,5 @@ public class Hotel
     public double DailyPrice { get; set; }
     public int Stars { get; set; }
     public HotelType HotelType { get; set; }
+    public string ImgLink { get; set; }
 }
